@@ -3,7 +3,7 @@
 A fork of [Monkeytype](https://github.com/monkeytypegame/monkeytype) focused on
 learning words in another language while you type, with a Persian interface.
 
-**Live site: https://saeedtahmtan.github.io/dingotype/**
+**Live site: https://dingotype.silitonix.ir/**
 
 Everything runs in the browser. There is no backend, no account and no
 telemetry: settings and results live in `localStorage`, and the site deploys as
@@ -35,7 +35,7 @@ static mode (no server calls).
 
 ```sh
 cd frontend
-BASE_PATH=/dingotype/ BACKEND_URL= pnpm build
+BASE_PATH=/ BACKEND_URL= pnpm build
 ```
 
 - `BACKEND_URL=` (empty) builds with no backend at all.
@@ -45,14 +45,17 @@ BASE_PATH=/dingotype/ BACKEND_URL= pnpm build
 Preview the build with:
 
 ```sh
-BASE_PATH=/dingotype/ pnpm site:preview   # http://localhost:4173/dingotype/
+BASE_PATH=/ pnpm site:preview   # http://localhost:4173/
 ```
 
 # Deployment
 
 `.github/workflows/deploy-pages.yml` builds the frontend with
-`BASE_PATH=/dingotype/` and publishes `frontend/dist` to GitHub Pages on every
+`BASE_PATH=/` and publishes `frontend/dist` to GitHub Pages on every
 push to `master` (or manually via `workflow_dispatch`).
+
+The custom domain (`dingotype.silitonix.ir`) is set by
+`frontend/static/CNAME`; point a `dingotype` CNAME at `saeedtahmtan.github.io`.
 
 Deep links are handled by `frontend/src/404.html`, which stores the requested
 path and bounces it back to the app.
