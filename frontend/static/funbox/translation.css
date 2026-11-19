@@ -1,0 +1,16 @@
+/* translation funbox: the answer word is hidden until typed or revealed with space */
+.word[data-ui-translation="masked"] {
+  filter: blur(0.3em);
+  opacity: 0.8;
+  user-select: none;
+}
+
+.word[data-ui-translation="answer"] {
+  position: relative;
+}
+
+/* only words without a direct translation get the special underline */
+.word[data-ui-translation-note] {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.25em;
+}
