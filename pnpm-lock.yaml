@@ -551,8 +551,8 @@ importers:
         specifier: 2.3.0
         version: 2.3.0
       tailwindcss:
-        specifier: 4.3.2
-        version: 4.3.2
+        specifier: 4.3.5
+        version: 4.3.5
       tsx:
         specifier: 4.21.0
         version: 4.21.0
@@ -11187,6 +11187,9 @@ packages:
 
   tailwindcss@4.3.2:
     resolution: {integrity: sha512-WtctNNSH8A9jlMIqxzuYumOHU5uGZyRv0Q5svQl+oEPy5w84YpBxdb7MdqyiSPQge5jTJ6zFQLq0PFygdccSBA==}
+
+  tailwindcss@4.3.5:
+    resolution: {integrity: sha512-FcQk9BuffmEHJP2G0XmB2SplU1aLTI7j07Kunk+U74Ny+XiWOtzXz9aujFZ/avntw1e2cOv/3PkgzflQ7gX2vQ==}
 
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
@@ -23845,6 +23848,8 @@ snapshots:
   tailwindcss@4.2.1: {}
 
   tailwindcss@4.3.2: {}
+
+  tailwindcss@4.3.5: {}
 
   tapable@2.2.1: {}
 
