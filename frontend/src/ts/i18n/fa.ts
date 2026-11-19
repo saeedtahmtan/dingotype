@@ -236,4 +236,10 @@ export const fa: Record<string, string> = {
   "known = answered correctly at least once":
     "آشنا = حداقل یک‌بار درست پاسخ داده شده",
   spanish: "اسپانیایی",
+
+  // cookies
+  "We use cookies by the way": "راستی، ما از کوکی استفاده می‌کنیم",
+  "Dingotype keeps your settings and results in your browser only. Nothing is sent to a server.":
+    "Dingotype تنظیمات و نتیجه‌های شما را فقط در مرورگر خودتان نگه می‌دارد و چیزی به سروری فرستاده نمی‌شود.",
+  "accept all": "می‌پذیرم",
 };

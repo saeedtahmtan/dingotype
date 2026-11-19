@@ -44,14 +44,14 @@ export function Logo(): JSXElement {
       <div class="hidden h-6 place-content-center text-[2rem] leading-0 sm:grid">
         <div
           class={cn(
-            "-mt-[1.65em] hidden pl-[0.5em] text-[0.315em] leading-0 text-sub transition-colors duration-125 group-focus-visible/logo:text-transparent lg:block",
+            "-mt-[1.65em] hidden pl-[calc(0.5em+30px)] text-[0.315em] leading-0 text-sub transition-colors duration-125 group-focus-visible/logo:text-transparent lg:block",
             {
               "text-transparent": isFocusMode(),
             },
           )}
           data-ui-element="logoSubtext"
         >
-          {isDevEnvironment() ? "localhost" : "dingo lingo"}
+          {isDevEnvironment() ? "localhost" : "bingo lingo"}
         </div>
         <h1
           class={cn("-mt-[0.11em] text-text transition-colors duration-250", {

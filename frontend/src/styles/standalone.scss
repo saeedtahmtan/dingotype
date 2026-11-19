@@ -72,7 +72,7 @@ header {
     .text {
       .top {
         position: absolute;
-        left: 0.35em;
+        left: calc(0.35em + 30px);
         font-size: 0.325em;
         line-height: 0.325em;
         color: var(--sub-color);

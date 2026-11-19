@@ -1,38 +1,13 @@
-import { createEffect, createSignal, JSXElement } from "solid-js";
+import { JSXElement } from "solid-js";
 
-import { showConsentPopup } from "../../controllers/ad-controller";
 import { getAcceptedCookies, setAcceptedCookies } from "../../cookies";
-import { hideModal, isModalOpen } from "../../states/modals";
-import { showErrorNotification } from "../../states/notifications";
-import { cn } from "../../utils/cn";
+import { t } from "../../i18n/store";
+import { hideModal } from "../../states/modals";
 import { AnimatedModal } from "../common/AnimatedModal";
-import { AnimeSwitch } from "../common/anime";
-import { AnimeMatch } from "../common/anime/AnimeMatch";
 import { Button } from "../common/Button";
 import { H3 } from "../common/Headers";
-import { t } from "../../i18n/store";
 
 export function CookiesModal(): JSXElement {
-  const [showSettings, setShowSettings] = createSignal(false);
-  const [accepted, setAccepted] = createSignal(
-    getAcceptedCookies() ?? {
-      security: true,
-      analytics: false,
-      sentry: false,
-    },
-  );
-
-  createEffect(() => {
-    if (!isModalOpen("Cookies")) {
-      setShowSettings(false);
-      setAccepted({
-        security: true,
-        analytics: false,
-        sentry: false,
-      });
-    }
-  });
-
   return (
     <AnimatedModal
       id="Cookies"
@@ -46,162 +21,27 @@ export function CookiesModal(): JSXElement {
         fa={{ icon: "fa-cookie-bite" }}
         class="mb-0 pb-0 text-2xl"
       />
-      <AnimeSwitch
-        exitBeforeEnter
-        animeProps={{
-          initial: {
-            opacity: 0,
-            duration: 125,
-          },
-          animate: {
-            opacity: 1,
-            duration: 125,
-          },
-          exit: {
-            opacity: 0,
-            duration: 125,
-          },
-        }}
-      >
-        <AnimeMatch when={!showSettings()}>
-          <div class="grid gap-4">
-            <div>
-              {t("Cookies enhance your experience and help us improve our website.")}
-            </div>
-            <div class="grid gap-2">
-              <Button
-                text="accept all"
-                active={true}
-                onClick={() => {
-                  setAccepted({
-                    security: true,
-                    analytics: true,
-                    sentry: true,
-                  });
-                  setAcceptedCookies(accepted());
-                  hideModal("Cookies");
-                }}
-              />
-              <Button
-                text="reject non-essential"
-                onClick={() => {
-                  setAccepted({
-                    security: true,
-                    analytics: false,
-                    sentry: false,
-                  });
-                  setAcceptedCookies(accepted());
-                  hideModal("Cookies");
-                }}
-              />
-              <Button
-                text="more options"
-                onClick={() => setShowSettings(true)}
-              />
-            </div>
-          </div>
-        </AnimeMatch>
-        <AnimeMatch when={showSettings()}>
-          <div class="grid gap-4">
-            <SettingsSection
-              title={t("security")}
-              description={
-                <div>
-                  {t("We use Cloudflare cookies to improve security and performance of our site. They do not store any personal information and are required.")}
-                </div>
-              }
-              checked={true}
-              disabled={true}
-            />
-            <SettingsSection
-              title={t("analytics")}
-              description={t("We use Google Analytics to track the overall traffic and demographics of our site.")}
-              checked={false}
-              onChange={(checked) =>
-                setAccepted({ ...accepted(), analytics: checked })
-              }
-            />
-            <SettingsSection
-              title={t("sentry")}
-              description={t("We use Sentry to track errors and performance issues on our site, as well as record anonymized user sessions to help us debug issues and improve experience.")}
-              checked={false}
-              onChange={(checked) =>
-                setAccepted({ ...accepted(), sentry: checked })
-              }
-            />
-            <SettingsSection
-              title={t("advertising")}
-              description={
-                <div class="grid grid-cols-[auto_1fr] items-center gap-4">
-                  <div>
-                    {t("Our advertising partner may use cookies to deliver ads that are more relevant to you.")}
-                  </div>
-                  <Button
-                    fa={{ icon: "fa-external-link-alt", fixedWidth: true }}
-                    class="text-[0.85em]"
-                    onClick={() => {
-                      try {
-                        showConsentPopup();
-                      } catch (e) {
-                        console.error("Failed to open ad consent UI");
-                        console.error(e);
-                        showErrorNotification(
-                          t("Failed to open Ad consent popup. Do you have an ad or cookie popup blocker enabled?"),
-                        );
-                      }
-                    }}
-                  />
-                  {/* <Button
-                    text="Click to change your preferences on ad related cookies"
-                    variant="text"
-                    class="text-left p-0 mt-2"
-                  /> */}
-                </div>
-              }
-              checked={false}
-              hideCheckbox={true}
-            />
-            <Button
-              text="accept selected"
-              onClick={() => {
-                setAcceptedCookies(accepted());
-                hideModal("Cookies");
-              }}
-            />
-          </div>
-        </AnimeMatch>
-      </AnimeSwitch>
-    </AnimatedModal>
-  );
-}
-
-function SettingsSection(props: {
-  title: string;
-  description: string | JSXElement;
-  checked: boolean;
-  disabled?: boolean;
-  hideCheckbox?: boolean;
-  onChange?: (checked: boolean) => void;
-}): JSXElement {
-  return (
-    <label
-      class={cn(
-        "grid grid-cols-[auto_1fr] items-center gap-2",
-        props.hideCheckbox && "grid-cols-1",
-      )}
-    >
-      <div class="grid gap-1">
-        <div class="text-sub">{props.title}</div>
-        <div class="text-text">{props.description}</div>
+      <div class="grid gap-4">
+        <div>
+          {t(
+            "Dingotype keeps your settings and results in your browser only. Nothing is sent to a server.",
+          )}
+        </div>
+        <Button
+          text="accept all"
+          active={true}
+          onClick={() => {
+            setAcceptedCookies(
+              getAcceptedCookies() ?? {
+                security: true,
+                analytics: false,
+                sentry: false,
+              },
+            );
+            hideModal("Cookies");
+          }}
+        />
       </div>
-      <input
-        type="checkbox"
-        class="text-2xl"
-        checked={props.checked}
-        disabled={props.disabled}
-        hidden={props.hideCheckbox}
-        onChange={(e) => props.onChange?.(e.currentTarget.checked)}
-      />
-    </label>
+    </AnimatedModal>
   );
 }
